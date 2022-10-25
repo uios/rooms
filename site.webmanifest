@@ -1,0 +1,14 @@
+{
+    "name": "Pages",
+    "short_name": "Pages",
+    "icons": [
+        {
+            "src": "/android-chrome-144x144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#f26c4f",
+    "background_color": "#f26c4f",
+    "display": "standalone"
+}

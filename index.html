@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>Rooms &#8226;&#160;uiOS</title>
+        <meta name='viewport' content='width=device-width,initial-scale=1.0,maximum-scale=1.0'>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name='apple-mobile-web-app-capable' content='yes'>
+        <meta name='apple-mobile-web-app-status-bar-style' content='#021025'>
+        <meta name="apple-mobile-web-app-title" content="Pages">
+        <meta name="application-name" content="Rooms">
+        <meta name="application-shortname" content="rooms">
+        <meta name="msapplication-TileColor" content="#f26c4f">
+        <meta name='theme-color' content='#f26c4f'>
+        <script>
+            var domains = window.location.host.split('.');
+            window.globals = {
+                domains: {
+                    domain: domains.length > 1 ? domains[domains.length - 2] : null,
+                    subdomain: domains.length > 2 ? domains[domains.length - 3] : null,
+                    tld: domains[domains.length - 1]
+                }
+            }
+            const base = document.createElement("base");
+            base.href = (globals.domains.domain === "github" ? "/" + document.head.querySelector('[name="application-shortname"]').content : "") + "/";
+            document.head.appendChild(base);
+        </script>
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link href="index.css" rel="stylesheet">
+        <link href="cdn/css/gg.css" rel="stylesheet">
+        <link href="cdn/css/boiler.css" rel="stylesheet">
+        <script id="firebase-app" src="cdn/js/firebase-app.js"></script>
+        <script id="firebase-auth" src="cdn/js/firebase-auth.js"></script>
+        <script id="script-vanilla" src="cdn/js/vanilla.js"></script>
+        <script id="script-auth" src="cdn/js/auth.js"></script>
+        <script id="script-mvc" src="cdn/js/mvc.js"></script>
+        <script id="script-on" src="cdn/js/on.js"></script>
+        <script id="script-touch" src="cdn/js/touch.js"></script>
+        <script id="script-router" src="cdn/js/router.js"></script>
+        <script src="index.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
+    </head>
+    <body class="-dark-background-color-1f background-color-fff" data-theme="system">
+        <boot id="boot"></boot>
+        <main>
+            <page class="width-100pct" data-fetch="/cdn/html/page/page.index.html" data-page="/"></page>
+            <page data-fetch="/cdn/html/page/page.room.name.html" data-page="/room/*/"></page>
+        </main>
+    </body>
+</html>
