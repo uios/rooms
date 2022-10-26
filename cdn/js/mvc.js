@@ -26,6 +26,32 @@ window.mvc.v ? null : (window.mvc.v = view = function(route) {
         if (root) {
 
             if (root === "room") {
+                if (get.length > 1) {
+                    var vp = dom.body.find('page[data-page="/room/*/"]');
+                    connection.videosContainer = vp.find('room > section');
+
+                    var roomid = get[1];
+                    (function reCheckRoomPresence() {
+                        connection.checkPresence(roomid, function(isRoomExist) {
+                            if (isRoomExist) {
+                                connection.join(roomid);
+                                return;
+                            }
+
+                            setTimeout(reCheckRoomPresence, 5000);
+                        });
+                    }
+                    )();
+
+                    connection.openOrJoin(get[1], function(isRoomExist, roomid) {
+                        if (isRoomExist) {
+                            connection.sdpConstraints.mandatory = {
+                                OfferToReceiveAudio: true,
+                                OfferToReceiveVideo: true
+                            };
+                        }
+                    });
+                }
                 resolve(route);
             } else {
                 resolve(route);
@@ -40,6 +66,7 @@ window.mvc.v ? null : (window.mvc.v = view = function(route) {
                     const vp = dom.body.find('page[data-page="/"]');
                     const card = vp.find('template').content.firstElementChild.cloneNode(true);
                     const feed = vp.find('feed');
+                    feed.innerHTML = "";
                     do {
                         const room = data[x];
                         card.dataset.href = "/room/" + room.replace(' ', '').toLowerCase();

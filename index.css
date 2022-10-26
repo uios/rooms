@@ -197,7 +197,7 @@ room > * > :nth-child(9) { background: gray; }
 
     [data-cams="6"] camera { width: calc(100%/3) !important; height: 50% !important; }
 
-    [data-cams="7"] camera { width: 25%; !important height: 50% !important; }
+    [data-cams="7"] camera { width: 25% !important; height: 50% !important; }
     [data-cams="7"] camera:nth-child(5),
     [data-cams="7"] camera:nth-child(6),
     [data-cams="7"] camera:nth-child(7) { width: calc(100%/3) !important; height: 50% !important; }
@@ -207,21 +207,21 @@ room > * > :nth-child(9) { background: gray; }
     [data-cams="9"] camera { width: calc(100%/3) !important; height: calc(100%/3) !important; }
 }
 @media (orientation: portrait) {
-    .cams__Wrapper[data-cams="1"] > camera {width: 100% !important;height: 100% !important;}
-    .cams__Wrapper[data-cams="2"] > camera { width: 100% !important; height: 50% !important; }
-    .cams__Wrapper[data-cams="3"] > camera { width: 100% !important; height: calc(100%/3) !important; }
-    .cams__Wrapper[data-cams="4"] > camera {width: 50% !important;height: 50% !important;}
+    [data-cams="1"] camera {width: 100% !important;height: 100% !important;}
+    [data-cams="2"] camera { width: 100% !important; height: 50% !important; }
+    [data-cams="3"] camera { width: 100% !important; height: calc(100%/3) !important; }
+    [data-cams="4"] camera {width: 50% !important;height: 50% !important;}
 
-    .cams__Wrapper[data-cams="5"] > camera {width: 50% !important;height: 35% !important;}
-    .cams__Wrapper[data-cams="5"] camera:nth-child(3) {width: 100% !important;height: 30% !important;}
+    [data-cams="5"] camera {width: 50% !important;height: 35% !important;}
+    [data-cams="5"] camera:nth-child(3) {width: 100% !important;height: 30% !important;}
 
-    .cams__Wrapper[data-cams="6"] > camera { width: 50% !important; height: calc(100%/3) !important; }
+    [data-cams="6"] camera { width: 50% !important; height: calc(100%/3) !important; }
 
-    .cams__Wrapper[data-cams="7"] > camera { width: 50% !important; height: 30% !important; }
-    .cams__Wrapper[data-cams="7"] camera:nth-child(3),
-    .cams__Wrapper[data-cams="7"] camera:nth-child(4),
-    .cams__Wrapper[data-cams="7"] camera:nth-child(5) { width: calc(100%/3) !important; height: 40% !important; }
+    [data-cams="7"] camera { width: 50% !important; height: 30% !important; }
+    [data-cams="7"] camera:nth-child(3),
+    [data-cams="7"] camera:nth-child(4),
+    [data-cams="7"] camera:nth-child(5) { width: calc(100%/3) !important; height: 40% !important; }
 
-    .cams__Wrapper[data-cams="8"] > camera { width: 50% !important; height: 25% !important; }
-    .cams__Wrapper[data-cams="9"] > camera { width: calc(100%/3) !important; height: calc(100%/3) !important; }
+    [data-cams="8"] camera { width: 50% !important; height: 25% !important; }
+    [data-cams="9"] camera { width: calc(100%/3) !important; height: calc(100%/3) !important; }
 }

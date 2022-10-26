@@ -292,6 +292,12 @@
     .flex-direction-row {
         flex-direction: row;
     }
+
+    @media (max-width: 812px) {
+        [data-812px-flex-direction="row"] {
+            flex-direction: row;            
+        }
+    }
 }
 
 /*FLEX GROW*/
@@ -829,6 +835,16 @@
         [data-1024px-width="100%"] {
             width: 100%;
         }
+    }
+
+    @media (max-width: 812px) {
+        [data-812px-height="50px"] {
+            height: 50px;
+        }        
+        
+        [data-812px-width="100%"] {
+            width: 100%;
+        }        
     }
 
     @media (max-width: 640px) {
