@@ -275,6 +275,8 @@ function init() {
                 alert('Broadcast is ended. We will reload this page to clear the cache.');
                 location.reload();
             }
+            
+            connection.videosContainer.dataset.cams = connection.videosContainer.children.length;
         }
     }
     ;
