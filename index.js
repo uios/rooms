@@ -117,29 +117,101 @@ function init() {
 
     console.log("Initialized");
 
-    //
     //CONNECTION
-    //
     window.connection = new RTCMultiConnection();
 
     // by default, socket.io server is assumed to be deployed on your own URL
     connection.socketURL = '/';
 
     // comment-out below line if you do not have your own socket.io server
-    connection.socketURL = 'https://muazkhan.com:9001/';
+     connection.socketURL = 'https://muazkhan.com:9001/';
 
-    connection.socketMessageEvent = 'rooms-uios';
+    connection.socketMessageEvent = 'video-conference-demo';
 
     connection.session = {
         audio: true,
-        video: true,
-        oneway: true
+        video: true
     };
 
     connection.sdpConstraints.mandatory = {
-        OfferToReceiveAudio: false,
-        OfferToReceiveVideo: false
+        OfferToReceiveAudio: true,
+        OfferToReceiveVideo: true
     };
+
+    // STAR_FIX_VIDEO_AUTO_PAUSE_ISSUES
+    // via: https://github.com/muaz-khan/RTCMultiConnection/issues/778#issuecomment-524853468
+    var bitrates = 512;
+    var resolutions = 'Ultra-HD';
+    var videoConstraints = {};
+
+    if (resolutions == 'HD') {
+        videoConstraints = {
+            width: {
+                ideal: 1280
+            },
+            height: {
+                ideal: 720
+            },
+            frameRate: 30
+        };
+    }
+
+    if (resolutions == 'Ultra-HD') {
+        videoConstraints = {
+            width: {
+                ideal: 1920
+            },
+            height: {
+                ideal: 1080
+            },
+            frameRate: 30
+        };
+    }
+
+    connection.mediaConstraints = {
+        video: videoConstraints,
+        audio: true
+    };
+
+    var CodecsHandler = connection.CodecsHandler;
+
+    connection.processSdp = function(sdp) {
+        var codecs = 'vp8';
+
+        if (codecs.length) {
+            sdp = CodecsHandler.preferCodec(sdp, codecs.toLowerCase());
+        }
+
+        if (resolutions == 'HD') {
+            sdp = CodecsHandler.setApplicationSpecificBandwidth(sdp, {
+                audio: 128,
+                video: bitrates,
+                screen: bitrates
+            });
+
+            sdp = CodecsHandler.setVideoBitrates(sdp, {
+                min: bitrates * 8 * 1024,
+                max: bitrates * 8 * 1024,
+            });
+        }
+
+        if (resolutions == 'Ultra-HD') {
+            sdp = CodecsHandler.setApplicationSpecificBandwidth(sdp, {
+                audio: 128,
+                video: bitrates,
+                screen: bitrates
+            });
+
+            sdp = CodecsHandler.setVideoBitrates(sdp, {
+                min: bitrates * 8 * 1024,
+                max: bitrates * 8 * 1024,
+            });
+        }
+
+        return sdp;
+    }
+    ;
+    // END_FIX_VIDEO_AUTO_PAUSE_ISSUES
 
     // https://www.rtcmulticonnection.org/docs/iceServers/
     // use your own TURN-server here!
@@ -148,7 +220,6 @@ function init() {
     }];
 
     connection.onstream = function(event) {
-        alert("connection.onstream");
         var existing = document.getElementById(event.streamid);
         if (existing && existing.parentNode) {
             existing.parentNode.removeChild(existing);
@@ -177,28 +248,25 @@ function init() {
                 video.setAttribute('muted', true);
             }
         }
+        video.className = "height-100pct position-absolute width-100pct";
         video.srcObject = event.stream;
 
         var width = parseInt(connection.videosContainer.clientWidth / 3) - 20;
-        var mediaElement = getHTMLMediaElement(video, {
-            title: event.userid,
-            buttons: ['full-screen'],
-            width: width,
-            showOnMouseEnter: false
-        });
+        var camera = document.createElement("camera");
+        camera.innerHTML = video.outerHTML;
 
-        connection.videosContainer.appendChild(mediaElement);
+        connection.videosContainer.appendChild(camera);
+        connection.videosContainer.dataset.cams = connection.videosContainer.children.length;
 
-        setTimeout(function() {
-            mediaElement.media.play();
-        }, 5000);
+        //setTimeout(function() {
+            video.play();
+        //}, 5000);
 
-        mediaElement.id = event.streamid;
+        camera.id = event.streamid;
     }
     ;
 
     connection.onstreamended = function(event) {
-        alert("connection.onstreamended");
         var mediaElement = document.getElementById(event.streamid);
         if (mediaElement) {
             mediaElement.parentNode.removeChild(mediaElement);
@@ -212,7 +280,9 @@ function init() {
     ;
 
     connection.onMediaError = function(e) {
-        console.log(connection.videosContainer,{e});
+        console.log(connection.videosContainer, {
+            e
+        });
         if (e.message === 'Concurrent mic process limit.') {
             if (DetectRTC.audioInputDevices.length <= 1) {
                 alert('Please select external microphone. Check github issue number 483.');

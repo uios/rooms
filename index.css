@@ -167,7 +167,7 @@
 }
 
 /*UI*/
-.cams__Wrapper > camera {padding: 0;border: 0;box-sizing: unset;}
+room camera {padding: 0;position: relative;border: 0;box-sizing: unset;}
 room > * > :nth-child(1) {background: red;}
 room > * > :nth-child(2) { background: blue; }
 room > * > :nth-child(3) { background: green; }
