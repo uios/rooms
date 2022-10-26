@@ -167,7 +167,10 @@
 }
 
 /*UI*/
-room camera {padding: 0;position: relative;border: 0;box-sizing: unset;}
+room > * > * {padding: 0px;position: relative;border: 0;box-sizing: unset;}
+room > * > * .media-box { position: absolute; top: 0; width: 100%; height: 100%; }
+room > * > * video { object-fit: cover; }
+
 room > * > :nth-child(1) {background: red;}
 room > * > :nth-child(2) { background: blue; }
 room > * > :nth-child(3) { background: green; }
@@ -178,50 +181,47 @@ room > * > :nth-child(7) { background: red; }
 room > * > :nth-child(8) { background: #795548; }
 room > * > :nth-child(9) { background: gray; }
 
-.cams__Cam video { object-fit: cover; }
-
 @media (orientation: landscape) {
-    [data-cams="1"] camera {width: 100% !important;height: 100% !important;}
+    [data-cams="1"] > * {width: 100% !important;height: 100% !important;}
     
-    [data-cams="2"] camera {width: 50% !important;height: 100% !important;}
+    [data-cams="2"] > * {width: 50% !important;height: 100% !important;}
     
-    [data-cams="3"] camera { width: calc(100%/3) !important; height: 100% !important; }
+    [data-cams="3"] > * { width: calc(100%/3) !important; height: 100% !important; }
     
-    [data-cams="4"] camera { width: 50% !important; height: 50% !important; }
+    [data-cams="4"] > * { width: 50% !important; height: 50% !important; }
 
-    [data-cams="5"] camera {width: 50% !important;height: 50% !important;}
-    [data-cams="5"] camera:nth-child() { width: calc(100%/3) !important; height: 50% !important; }
-    [data-cams="5"] camera:nth-child(3) { width: calc(100%/3) !important; height: 50% !important; }
-    [data-cams="5"] camera:nth-child(4) { width: calc(100%/3) !important; height: 50% !important; }
-    [data-cams="5"] camera:nth-child(5) { width: calc(100%/3) !important; height: 50% !important; }
+    [data-cams="5"] > * {width: 50% !important;height: 50% !important;}
+    [data-cams="5"] > *:nth-child(3) { width: calc(100%/3) !important; height: 50% !important; }
+    [data-cams="5"] > *:nth-child(4) { width: calc(100%/3) !important; height: 50% !important; }
+    [data-cams="5"] > *:nth-child(5) { width: calc(100%/3) !important; height: 50% !important; }
 
-    [data-cams="6"] camera { width: calc(100%/3) !important; height: 50% !important; }
+    [data-cams="6"] > * { width: calc(100%/3) !important; height: 50% !important; }
 
-    [data-cams="7"] camera { width: 25% !important; height: 50% !important; }
-    [data-cams="7"] camera:nth-child(5),
-    [data-cams="7"] camera:nth-child(6),
-    [data-cams="7"] camera:nth-child(7) { width: calc(100%/3) !important; height: 50% !important; }
+    [data-cams="7"] > * { width: 25% !important; height: 50% !important; }
+    [data-cams="7"] > *:nth-child(5),
+    [data-cams="7"] > *:nth-child(6),
+    [data-cams="7"] > *:nth-child(7) { width: calc(100%/3) !important; height: 50% !important; }
     
-    [data-cams="8"] camera { width: 25% !important; height: 50% !important; }
+    [data-cams="8"] > * { width: 25% !important; height: 50% !important; }
     
-    [data-cams="9"] camera { width: calc(100%/3) !important; height: calc(100%/3) !important; }
+    [data-cams="9"] > * { width: calc(100%/3) !important; height: calc(100%/3) !important; }
 }
 @media (orientation: portrait) {
-    [data-cams="1"] camera {width: 100% !important;height: 100% !important;}
-    [data-cams="2"] camera { width: 100% !important; height: 50% !important; }
-    [data-cams="3"] camera { width: 100% !important; height: calc(100%/3) !important; }
-    [data-cams="4"] camera {width: 50% !important;height: 50% !important;}
+    [data-cams="1"] > * {width: 100% !important;height: 100% !important;}
+    [data-cams="2"] > * { width: 100% !important; height: 50% !important; }
+    [data-cams="3"] > * { width: 100% !important; height: calc(100%/3) !important; }
+    [data-cams="4"] > * {width: 50% !important;height: 50% !important;}
 
-    [data-cams="5"] camera {width: 50% !important;height: 35% !important;}
-    [data-cams="5"] camera:nth-child(3) {width: 100% !important;height: 30% !important;}
+    [data-cams="5"] > * {width: 50% !important;height: 35% !important;}
+    [data-cams="5"] > *:nth-child(3) {width: 100% !important;height: 30% !important;}
 
-    [data-cams="6"] camera { width: 50% !important; height: calc(100%/3) !important; }
+    [data-cams="6"] > * { width: 50% !important; height: calc(100%/3) !important; }
 
-    [data-cams="7"] camera { width: 50% !important; height: 30% !important; }
-    [data-cams="7"] camera:nth-child(3),
-    [data-cams="7"] camera:nth-child(4),
-    [data-cams="7"] camera:nth-child(5) { width: calc(100%/3) !important; height: 40% !important; }
+    [data-cams="7"] > * { width: 50% !important; height: 30% !important; }
+    [data-cams="7"] > *:nth-child(3),
+    [data-cams="7"] > *:nth-child(4),
+    [data-cams="7"] > *:nth-child(5) { width: calc(100%/3) !important; height: 40% !important; }
 
-    [data-cams="8"] camera { width: 50% !important; height: 25% !important; }
-    [data-cams="9"] camera { width: calc(100%/3) !important; height: calc(100%/3) !important; }
+    [data-cams="8"] > * { width: 50% !important; height: 25% !important; }
+    [data-cams="9"] > * { width: calc(100%/3) !important; height: calc(100%/3) !important; }
 }

@@ -46,9 +46,6 @@ window.mvc.v ? null : (window.mvc.v = view = function(route) {
                     connection.openOrJoin(get[1], function(isRoomExist, roomid, error) {
                         if (error) {
                             alert(error);
-                        } else if (connection.isInitiator === true) {
-                            // if room doesn't exist, it means that current user will create the room
-                            showRoomURL(roomid);
                         }
                     });
                 }

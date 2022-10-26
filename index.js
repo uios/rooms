@@ -124,7 +124,7 @@ function init() {
     connection.socketURL = '/';
 
     // comment-out below line if you do not have your own socket.io server
-     connection.socketURL = 'https://muazkhan.com:9001/';
+    connection.socketURL = 'https://muazkhan.com:9001/';
 
     connection.socketMessageEvent = 'video-conference-demo';
 
@@ -250,19 +250,24 @@ function init() {
         }
         video.className = "height-100pct position-absolute width-100pct";
         video.srcObject = event.stream;
+        //video.src = "http://scienceandfilm.org/uploads/videos/files/Enigma_Trailer.mp4"
 
         var width = parseInt(connection.videosContainer.clientWidth / 3) - 20;
-        var camera = document.createElement("camera");
-        camera.innerHTML = video.outerHTML;
+        var mediaElement = getHTMLMediaElement(video, {
+            title: event.userid,
+            buttons: ['full-screen'],
+            width: width,
+            showOnMouseEnter: false
+        });
 
-        connection.videosContainer.appendChild(camera);
+        connection.videosContainer.appendChild(mediaElement);
         connection.videosContainer.dataset.cams = connection.videosContainer.children.length;
 
-        //setTimeout(function() {
-            video.play();
-        //}, 5000);
+        setTimeout(function() {
+            mediaElement.media.play();
+        }, 5000);
 
-        camera.id = event.streamid;
+        mediaElement.id = event.streamid;
     }
     ;
 
@@ -275,7 +280,7 @@ function init() {
                 alert('Broadcast is ended. We will reload this page to clear the cache.');
                 location.reload();
             }
-            
+
             connection.videosContainer.dataset.cams = connection.videosContainer.children.length;
         }
     }
