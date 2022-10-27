@@ -249,23 +249,26 @@ function init() {
             }
         }
         video.className = "height-100pct position-absolute width-100pct";
-        video.srcObject = event.stream;
-        //video.src = "http://scienceandfilm.org/uploads/videos/files/Enigma_Trailer.mp4"
+        if (!video.srcObject) {
+            console.log({
+                event
+            });
+            video.srcObject = event.stream;
+            //video.src = "http://scienceandfilm.org/uploads/videos/files/Enigma_Trailer.mp4"
+            
+            var mediaElement = getHTMLMediaElement(video, {
+                title: event.userid,
+                showOnMouseEnter: false
+            });
+            //mediaElement = document.createElement("camera");
+            //mediaElement.innerHTML = video.outerHTML;
 
-        var width = parseInt(connection.videosContainer.clientWidth / 3) - 20;
-        var mediaElement = getHTMLMediaElement(video, {
-            title: event.userid,
-            buttons: ['full-screen'],
-            width: width,
-            showOnMouseEnter: false
-        });
+            connection.videosContainer.appendChild(mediaElement);
+            connection.videosContainer.dataset.cams = connection.videosContainer.children.length;
 
-        connection.videosContainer.appendChild(mediaElement);
-        connection.videosContainer.dataset.cams = connection.videosContainer.children.length;
-
-        setTimeout(function() {
-            mediaElement.media.play();
-        }, 5000);
+            const cam = connection.videosContainer.lastElementChild.firstElementChild;
+            cam.onloadedmetadata = e=>cam.play();
+        }
 
         mediaElement.id = event.streamid;
     }
@@ -275,21 +278,12 @@ function init() {
         var mediaElement = document.getElementById(event.streamid);
         if (mediaElement) {
             mediaElement.parentNode.removeChild(mediaElement);
-
-            if (event.userid === connection.sessionid && !connection.isInitiator) {
-                alert('Broadcast is ended. We will reload this page to clear the cache.');
-                location.reload();
-            }
-
             connection.videosContainer.dataset.cams = connection.videosContainer.children.length;
         }
     }
     ;
 
     connection.onMediaError = function(e) {
-        console.log(connection.videosContainer, {
-            e
-        });
         if (e.message === 'Concurrent mic process limit.') {
             if (DetectRTC.audioInputDevices.length <= 1) {
                 alert('Please select external microphone. Check github issue number 483.');
